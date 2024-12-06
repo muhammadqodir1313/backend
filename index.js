@@ -11,7 +11,12 @@ const chatId = process.env.TELEGRAM_CHAT_ID;
 const bot = new TelegramBot(token, { polling: false });
 
 // CORS va JSON sozlamalari
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://muhammadqodir1313.github.io',
+        'http://localhost:3000'
+    ]
+}));
 app.use(express.json());
 
 // Contact API endpoint
