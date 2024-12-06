@@ -10,13 +10,24 @@ const token = process.env.TELEGRAM_BOT_TOKEN;
 const chatId = process.env.TELEGRAM_CHAT_ID;
 const bot = new TelegramBot(token, { polling: false });
 
-// CORS va JSON sozlamalari
+// CORS sozlamalarini yangilash
 app.use(cors({
-    origin: [
-        'https://muhammadqodir1313.github.io',
-        'http://localhost:3000'
-    ]
+    origin: 'https://muhammadqodir1313.github.io',
+    credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Accept']
 }));
+
+// Response headerlarini to'g'rilash
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin', 'https://muhammadqodir1313.github.io');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+});
+
+// JSON sozlamalari
 app.use(express.json());
 
 // Contact API endpoint
